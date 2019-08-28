@@ -1,0 +1,29 @@
+Examen de JavaScript et jQuery
+
+L'interface comporte 3 boutons, un section vide qui sera complétée par des nombres, un élément 
+<meter>, un total et un cadre de logs.
+
+Au clic sur le bouton "?", si la somme des nombres est inférieure à 20, un nombre aléatoire 
+entre 1 et 9 (valeurs comprises) est ajouté dans la section. 
+Si la somme des nombres atteint ou dépasse 20, le bouton "?" devient gris et le clic sur 
+celui-ci n'a plus d'effet.
+
+Les nombres ont un background rose.
+
+Au clic sur un nombre, les nombres deviennent tous roses et le nombre cliqué devient vert.
+
+Au clic sur les boutons "-" ou "+", si un nombre est vert, une ligne de log est ajoutée en haut 
+du cadre de logs. Cette ligne est de la forme x + y = z ou x - y = z selon l'opération cliquée, 
+et où x est le total avant le clic, y le nombre vert et z le total après le clic.
+z est toujours compris dans l'intervalle 0 à 20. Ce qui donne parfois des logs surpenants comme 
+"15 + 6 = 20" ou "3 - 7 = 0"
+Le nouveau total ainsi calculé, est affiché à côté du <meter> et en tant que value du <meter> 
+(dont les paramètres sont min="0" max="20" value="0" low="10" high="12" optimum="20").
+
+Dernière étape, quand tout le reste fonctionne : les nombres générés sont triés du plus petit 
+au plus grand !
+
+
+
+
+

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="author" content="Just a random guy">
+		<meta name="description" content="Exemple de résolution pour l'examen sécu de Juin 2019">
+		<title>Examen 2019</title>
+		<link rel="stylesheet" href="style.css">
+		
+	</head>
+	<body>
+		<main>
+		
+			<!--	L'interface comporte 3 boutons, un section vide qui sera complétée par des nombres, un élément <meter>, 
+			un total et un cadre de logs.	-->
+		
+			<div id="boutons">
+				<div id="soustraction" class="boutons">-</div>
+				<div id="aleatoire" class="boutons">?</div>
+				<div id="addition" class="boutons">+</div>
+			</div>
+			
+			<div id="nombres">
+				
+			</div>
+			
+			<div id="total">
+				<meter class="total" id="totalMeter" min="0" max="20" value="0" low="10" high="12" optimum="20"></meter>
+				<div class="total" id="lblTotal">0</div>
+			</div>
+			
+			<div id="logs">
+				<textarea id="txtLog" cols="30" rows="5" name="Logs">
+					
+				</textarea>
+			</div>
+			
+		</main>
+		
+		<script src="jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+			//Définition des variables
+				var nbrAleatoire;
+				var totalNombres = 0;
+				var total = 0;
+				var totalApres = 0;
+				var nombreClique;
+				var caseCliquee = false;
+				
+				//Permet de vider le textarea quand la page est chargée
+				document.getElementById('txtLog').value = '';
+			
+				/*	Au clic sur le bouton "?", si la somme des nombres est inférieure à 20, un nombre aléatoire 
+				entre 1 et 9 (valeurs comprises) est ajouté dans la section. 
+				Si la somme des nombres atteint ou dépasse 20, le bouton "?" devient gris et le clic sur 
+				celui-ci n'a plus d'effet.	*/
+			
+				//Click sur le bouton aléatoire
+				$('#aleatoire').click(function() {
+					//Génération d'un nombre aléatoire entre 1 et 9 compris
+					nbrAleatoire = Math.floor(Math.random() * (9-1+1) +1); /*(max - min + 1) + min*/
+					//Gestion de la condition "Si la somme des nombres atteint ou dépasse 20"
+					//Si plus petit que 20, ajouter le nombre dans un div
+					if (totalNombres < 20)
+					{
+						$('#nombres').append('<div class="nombre">'+nbrAleatoire+'</div>');
+					}
+					totalNombres += nbrAleatoire;
+					//Si plus grand ou égal, changer la couleur (le bouton sera bloqué car il entrera toujours dans cette condition)
+					if (totalNombres >= 20)
+					{
+						$('#aleatoire').css('background-color','grey');
+					}
+					
+					//Quand on clique sur un nombre généré...
+					
+					/*	Au clic sur un nombre, les nombres deviennent tous roses et le nombre cliqué devient vert.	*/
+					
+					$('.nombre').click(function() {
+						//Changement des couleurs
+						$('.nombre').css('background-color','#C88');
+						$(this).css('background-color','#6C6');
+						//Initialisation de la variable permettant de vérifier si un bouton est sélectionné
+						caseCliquee = true;
+						//Sauvegarde du bouton sélectionné pour les autres fonctions
+						nombreClique = parseInt($(this).html());
+					});
+				});
+				
+				/*	Au clic sur les boutons "-" ou "+", si un nombre est vert, une ligne de log est ajoutée en haut 
+				du cadre de logs. Cette ligne est de la forme x + y = z ou x - y = z selon l'opération cliquée, 
+				et où x est le total avant le clic, y le nombre vert et z le total après le clic.
+				z est toujours compris dans l'intervalle 0 à 20. Ce qui donne parfois des logs surpenants comme 
+				"15 + 6 = 20" ou "3 - 7 = 0"	*/
+				
+				//Si click sur bouton soustraction ...
+				$('#soustraction').click( function () {
+					if (caseCliquee == true)
+					{
+						//Sauvegarde du contenu du textarea
+						valeurPrecedente = document.getElementById('txtLog').value;
+						//Changement du "futur" total
+						totalApres = total-nombreClique;
+						//Si le total ne descend pas sous 0, on continue, sinon celui-ci sera égal à 0
+						if(totalApres < 0)
+						{
+							totalApres = 0;
+						}
+						//Mise à jour du textarea
+						document.getElementById('txtLog').value = total+' - '+nombreClique+' = '+(totalApres) + '\n' + valeurPrecedente;
+						//Appel de la fonction pour mettre à jour les valeurs
+						actualiserValeurs();
+					}
+				});
+				
+				$('#addition').click( function () {
+					if (caseCliquee == true)
+					{
+						valeurPrecedente = document.getElementById('txtLog').value;
+						totalApres = total+nombreClique;
+						if(totalApres > 20)
+						{
+							totalApres = 20;
+						}
+						document.getElementById('txtLog').value = total+' + '+nombreClique+' = '+(totalApres) + '\n' + valeurPrecedente;
+						actualiserValeurs();
+					}
+				});
+				
+				/*	Le nouveau total ainsi calculé, est affiché à côté du <meter> et en tant que value du <meter> 
+				(dont les paramètres sont min="0" max="20" value="0" low="10" high="12" optimum="20").	*/
+				
+				function actualiserValeurs()
+				{
+					//Mise à jour du total
+					total = totalApres;
+					//Mise à jour du label et du meter
+					$('#lblTotal').html(total);
+					$('#totalMeter').attr("value", total);
+				}			
+			});
+			
+			/*	Dernière étape, quand tout le reste fonctionne : les nombres générés sont triés du plus petit 
+			au plus grand !		*/
+			/*	Je ne l'ai pas fait car c'est du gros boulot pour peu de résultat. Je ne l'ai pas fait à l'examen 
+			(j'ai expliqué mes idées en commentaires mais je n'ai rien mis en place) mais j'ai quand même eu de beaux points. 
+			Ces points bonus ne valent pas grand chose, ne vous attardez pas dessus !		*/
+		</script>
+	</body>
+</html>
