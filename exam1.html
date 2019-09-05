@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Remédiation Juillet 2019</title>
+        <style>
+            body {font-size: 48px;}
+
+            .bouton {
+                width: 100px;
+                height: 100px;
+                background-color: #bbf;
+                display: inline-block;
+                margin: 10px;
+                cursor: pointer;
+                text-align: center;
+                align-content: center;
+            }
+            /* survol du bouton */
+            .bouton:hover {background-color: #bfb;}
+
+            .bouton.active {background-color: #ccc;}
+
+            .numero {
+                width: 100px;
+                height: 100px;
+                background-color: #fcc;
+                display: inline-block;
+                margin: 10px;
+                align-content: center;
+            }
+
+            .couleur{background-color: #888;}
+
+        </style>
+    </head>
+    <body>
+        <section>
+            <h1>Examen TQ1 juin</h1>
+            <div class="bouton" id="moins">-</div>
+            <div class="bouton" id="plus">+</div>
+        </section>
+        <section id="nums">
+            <!--- nouveaux boutons --->
+        </section>
+        <script src="jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var nb = Math.floor(2 + Math.random() * 7); //random de 2 à 8 (math.floor = arrondi vers inferieur)
+                for (let i = 1; i <= nb; i++) {
+                    /* ajout d'un bouton avec un numéro aléatoire */
+                    $('#nums').append('<div class ="numero" id ="n'+i+'">'+i+'</div>');
+                }
+
+                $('#moins').click(function() {
+                    //supression d'une classe ou change la couleur si "numéro" = 1
+                    if (nb > 1) {
+                        $('#n' + nb).remove();
+                        nb--;
+                    }
+                    if (nb == 1) {
+                        $('.numero').addClass('couleur');
+                    } else {
+                        $('.numero').removeClass('couleur');
+                    }
+
+                });
+
+                $('#plus').click(function() {
+                    //ajout d'une classe avec changement de couleur si 9 cases possédées
+                    if (nb < 9) {
+                        nb++;
+                        $('#nums').append('<div class="numero" id="n' + nb + '">' + nb + '</div>');
+                    }
+                    if (nb == 9) {
+                        $('.numero').addClass('couleur');
+                    } else {
+                        $('.numero').removeClass('couleur');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

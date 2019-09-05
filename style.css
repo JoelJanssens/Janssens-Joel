@@ -1,0 +1,53 @@
+main
+{
+	text-align:center;
+	font-size:1.5em;
+	width:50%;
+	margin-left:25%;
+}
+#boutons
+{
+	display:flex;
+	flex-flow:row wrap;
+	margin-bottom:20px;	
+}
+/*	Les nombres ont un background rose.	*/
+.boutons
+{
+	background-color:#66C;
+	margin-left:20px;
+	margin-right:20px;
+	width: 80px;
+	height:50px;
+	cursor:pointer;
+	line-height:50px;
+}
+#soustraction
+{
+	margin-left:30%;	
+}
+#nombres
+{
+	margin-bottom:10px;
+	display:flex;
+}
+.nombre
+{
+	width: 80px;
+	height:50px;
+	cursor:pointer;
+	margin:auto;
+	background-color:#C88;
+	line-height:50px;
+}
+#total
+{
+	display:flex;
+	flex-flow:row wrap;
+}
+meter
+{
+	margin-left:40%;
+	margin-right:10px;
+	margin-bottom:10px;
+}

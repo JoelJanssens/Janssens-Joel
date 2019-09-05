@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Remédiation juillet 2019</title>
+    <style>
+        body {
+            font-size: 48px;
+            text-align: center;
+            background-color: #87b;
+        }
+
+        .case {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            display: inline-block;
+            background-color: #fff;
+            cursor: pointer; /* changer le curseur */
+        }
+
+        .case:hover {
+            background-color: #bbb;/* changer la couleur lors du survol */
+
+        }
+
+        .jeton { 
+            /* les lettres à remattre dans le cadre */
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            display: inline-block;
+            background-color: #ffc;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            cursor: pointer;
+        }
+
+        .jeton:hover{ background-color: #fbb; z-index: 2;}
+        .jeton.check { background-color: #000; color: #fff; z-index: 2;} /* selection du bouton */
+
+    </style>
+</head>
+
+<body onload="chargement()">
+    <section>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+    </section>
+    <section>
+        <div class="jeton">j</div>
+        <div class="jeton">a</div>
+        <div class="jeton">v</div>
+        <div class="jeton">a</div>
+        <div class="jeton">s</div>
+        <div class="jeton">c</div>
+        <div class="jeton">r</div>
+        <div class="jeton">i</div>
+        <div class="jeton">p</div>
+        <div class="jeton">t</div>
+    </section>
+    <script src="jquery.min.js"></script>
+    <script>
+        function chargement() {
+            $('.jeton').each(function() {
+                /* positionnement aléatoire [a modifier en fonction de la résolution de l'écran */
+                $(this).css('left',100+1300* Math.random()); 
+                $(this).css('top',100+400* Math.random());
+            });
+            /* animation pour l'affichage des jetons lors du rafraichissement de la page*/
+            $('.jeton').fadeIn(2000);
+        }
+
+        $(document).ready(function() {
+            $('.jeton').click(function() {
+                /* changer la sélection des jeton */
+                $('.jeton').removeClass('check');
+                $(this).addClass('check');
+            });
+
+            $('.case').click(function() {
+                /* l'animation du déplacement des jetons */
+                $('.check').animate({top: $(this).offset().top, left: $(this).offset().left});
+            });
+        });
+
+    </script>
+</body>
+
+</html>
